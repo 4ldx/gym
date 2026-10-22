@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APEX FITNESS | Performance & Training Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Fondo de malla interactiva en movimiento -->
+  <div class="mesh-bg"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#home" class="brand">APEX<span class="dot">.</span>CLUB</a>
+      <nav class="nav-menu">
+        <a href="#home">Inicio</a>
+        <a href="#disciplinas">Disciplinas</a>
+        <a href="#planes">Membresías</a>
+        <a href="#pase" class="nav-btn-glow">Pase de 1 Día</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero con Tipografía Impactante -->
+    <section class="hero" id="home">
+      <div class="hero-badge">⚡ ELITE PERFORMANCE STUDIO</div>
+      <h1 class="hero-title">ROMPE TUS <br><span class="text-gradient">LÍMITES HOY</span></h1>
+      <p class="hero-sub">Entrenamiento de alta intensidad, musculación biomecánica y coaching personalizado en un espacio diseñado para transformar tu rendimiento.</p>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <strong>24/7</strong>
+          <span>Acceso Total</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>+15</strong>
+          <span>Coaches Elite</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>100%</strong>
+          <span>Resultados</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Selector Interactivo de Disciplinas (Tabs Dinámicos) -->
+    <section class="section" id="disciplinas">
+      <div class="section-header">
+        <span class="sub-title">DISCIPLINAS</span>
+        <h2>Encuentra tu entrenamiento</h2>
+      </div>
+
+      <div class="discipline-tabs">
+        <button type="button" class="tab-btn active" data-img="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80" data-name="Crossfit & Funcional" data-desc="Acondicionamiento físico extremo enfocado en fuerza, velocidad y potencia metabólica." data-price="950">🔥 Crossfit / Funcional</button>
+        <button type="button" class="tab-btn" data-img="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80" data-name="Musculación & Biomecánica" data-desc="Zona pesada equipada con maquinaria Hammer Strength y área de peso libre profesional." data-price="800">🏋️‍♂️ Musculación Pro</button>
+        <button type="button" class="tab-btn" data-img="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=1200&q=80" data-name="Boxing & Striking" data-desc="Técnica de combate, trabajo en sacos de golpeo y quema calórica acelerada." data-price="1100">🥊 Boxing Club</button>
+      </div>
+
+      <!-- Visor Dinámico con Imagen de Alto Impacto -->
+      <div class="discipline-viewer" id="viewer">
+        <div class="viewer-overlay"></div>
+        <div class="viewer-content">
+          <span class="badge-tag">RECOMENDADO</span>
+          <h3 id="discName">Crossfit & Funcional</h3>
+          <p id="discDesc">Acondicionamiento físico extremo enfocado en fuerza, velocidad y potencia metabólica.</p>
+          <div class="viewer-footer">
+            <div class="price-wrap">
+              <span>Inversión mensual</span>
+              <strong id="discPrice">$950 MXN</strong>
+            </div>
+            <button type="button" class="btn-primary" id="btnSelectDisc">Elegir esta Disciplina</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tarjeta de Acción / Agendamiento -->
+    <section class="section" id="pase">
+      <div class="cta-card">
+        <div class="cta-info">
+          <h3>¿Listo para probar nuestras instalaciones?</h3>
+          <p id="selectedSummary">Solicita tu pase VIP para entrenar 1 día completamente gratis sin compromiso.</p>
+        </div>
+        <button type="button" class="btn-whatsapp-pro" id="btnSend">
+          Solicitar Pase VIP por WhatsApp
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 <strong>APEX PERFORMANCE CLUB</strong>. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Scripts Interativos -->
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const viewer = document.getElementById('viewer');
+    const discName = document.getElementById('discName');
+    const discDesc = document.getElementById('discDesc');
+    const discPrice = document.getElementById('discPrice');
+    const selectedSummary = document.getElementById('selectedSummary');
+    const btnSend = document.getElementById('btnSend');
+
+    let currentSelection = {
+      name: "Crossfit & Funcional",
+      price: "950"
+    };
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const img = tab.getAttribute('data-img');
+        const name = tab.getAttribute('data-name');
+        const desc = tab.getAttribute('data-desc');
+        const price = tab.getAttribute('data-price');
+
+        currentSelection = { name, price };
+
+        // Animación de cambio de imagen
+        viewer.style.opacity = '0.4';
+        setTimeout(() => {
+          viewer.style.backgroundImage = `url('${img}')`;
+          discName.innerText = name;
+          discDesc.innerText = desc;
+          discPrice.innerText = `$${price} MXN`;
+          viewer.style.opacity = '1';
+        }, 200);
+      });
+    });
+
+    document.getElementById('btnSelectDisc').addEventListener('click', () => {
+      selectedSummary.innerText = `Has elegido: ${currentSelection.name} ($${currentSelection.price} MXN/mes). Pulsa el botón para confirmar tu registro.`;
+      selectedSummary.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    btnSend.addEventListener('click', () => {
+      const TELEFONO_WHATSAPP = "528611265737";
+      let msg = `¡Hola APEX CLUB! ⚡ Me interesa unirme al programa de *${currentSelection.name}* ($${currentSelection.price} MXN/mes) o agendar mi *Pase VIP de 1 Día Gratis*. ¿Me comparten horarios disponibles?`;
+      window.open(`https://api.whatsapp.com/send?phone=${TELEFONO_WHATSAPP}&text=${encodeURIComponent(msg)}`, '_blank');
+    });
+  </script>
+</body>
+</html>
